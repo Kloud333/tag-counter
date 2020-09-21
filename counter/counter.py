@@ -3,6 +3,7 @@ import yaml
 from bs4 import BeautifulSoup
 import click
 import logging
+from pathlib import Path
 
 logging.basicConfig(filename='tags_counter.log', filemode='w', level=logging.INFO)
 
@@ -10,7 +11,7 @@ logging.basicConfig(filename='tags_counter.log', filemode='w', level=logging.INF
 def get_url(url):
     logging.info("Open aliases yaml")
 
-    with open("aliases.yaml", 'r') as aliases_file:
+    with open(str(Path(__file__).parent.absolute()) + '\\aliases.yaml', 'r') as aliases_file:
         try:
             logging.info("Load aliases")
             aliases = yaml.safe_load(aliases_file)
