@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='tag-counter',
@@ -10,5 +10,11 @@ setup(
     author_email='klekotVR@gmail.com',
     url='https://github.com/Kloud333/tag-counter',
     packages=['counter'],
+    package_data={'': ['*.yaml']},
+    install_requires=['requests', 'PyYAML', 'click', 'bs4', 'beautifulsoup4', 'logging'],
     license="MIT License",
-)
+    entry_points={
+        'console_scripts':
+            ['tagcounter = counter.counter:main']
+        }
+    )
