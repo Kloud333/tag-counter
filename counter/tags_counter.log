@@ -1,0 +1,7 @@
+INFO:root:Open aliases yaml
+INFO:root:Load aliases
+INFO:root:Found alias
+INFO:root:Add https prefix to url
+INFO:root:Get html page
+INFO:root:Parse html page
+INFO:root:Show parsing result
