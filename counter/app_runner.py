@@ -10,5 +10,9 @@ def run_get(url: str):
     run_console(url)
 
 
+def run_get_from_db(url: str):
+    pass
+
+
 def run_view():
     run_gui()
