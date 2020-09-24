@@ -11,7 +11,7 @@ setup(
     url='https://github.com/Kloud333/tag-counter',
     packages=['counter'],
     package_data={'': ['*.yaml']},
-    install_requires=['requests', 'PyYAML', 'click', 'bs4', 'beautifulsoup4', 'logging'],
+    install_requires=['requests', 'PyYAML', 'click', 'bs4', 'beautifulsoup4'],
     license="MIT License",
     entry_points={
         'console_scripts':
