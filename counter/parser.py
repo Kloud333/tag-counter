@@ -21,4 +21,4 @@ class Parser:
         except requests.exceptions.ConnectionError:
             return None
 
-        return yaml.dump(results)
+        return results
