@@ -1,10 +1,11 @@
 import tkinter
 from tkinter import messagebox
-
 from counter.parser import Parser
+from counter.aliases import Aliases
+from counter.storage import Storage
 
 
-def run_gui():
+def run_gui_view():
     master = tkinter.Tk()
 
     canvas = tkinter.Canvas(master, width=400, height=600)
@@ -24,17 +25,16 @@ def run_gui():
 
     def on_calculate_click():
         url = url_entry.get()
-        parser = Parser()
-        result = parser.get_tags_numbers(url)
 
-        print(result)
+        with Storage() as storage:
+            parser = Parser(url, aliases=Aliases, storage=storage)
+            result = parser.count_tags()
 
         if result is None:
             messagebox.showerror("Error", "Invalid URL")
             return
 
-        result_label['text'] = 'Result: ' + result
-
+        result_label['text'] = 'Result: \n' + result
 
     # buttons
     get_button = tkinter.Button(text='Calculate', command=on_calculate_click)
@@ -42,6 +42,6 @@ def run_gui():
 
     # result label
     result_label = tkinter.Label(master, text='')
-    canvas.create_window(200, 540, window=result_label)
+    canvas.create_window(200, 400, window=result_label)
 
     master.mainloop()
