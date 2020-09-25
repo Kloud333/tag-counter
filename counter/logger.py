@@ -13,5 +13,5 @@ class Logger:
 
     innerLogger.addHandler(file_handler)
 
-    def info(self, domain_name: str):
-        self.innerLogger.info(domain_name)
+    def info(self, url: str):
+        self.innerLogger.info(url)
