@@ -8,7 +8,8 @@ def console_view(domain_name: str):
     logger = Logger()
 
     with Storage() as storage:
-        url = Aliases.get_url(domain_name)
+        alias = Aliases()
+        url = alias.get_url(domain_name)
         logger.info(url)
 
         parser = Parser(url)
