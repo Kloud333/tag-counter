@@ -15,11 +15,11 @@ def console_view(domain_name: str):
         parser = Parser(url)
         results = parser.count_tags()
 
-        storage.save_tags(url, results)
-
     if results is None:
         print('Error: Invalid URL or Connection problems')
         return
+
+    storage.save_tags(url, results)
 
     print('Result:\n', results)
     pass
