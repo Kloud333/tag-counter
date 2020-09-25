@@ -12,7 +12,7 @@ class Aliases:
             self.read(self.load_yaml)
 
     def get_url(self, url: str):
-        full_url = url if '.' in url else self.aliases[url]
+        full_url = self.aliases[url] if url in list(self.aliases.keys()) else url
 
         if not full_url.lower().startswith("http"):
             full_url = "https://" + full_url
