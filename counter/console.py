@@ -1,17 +1,24 @@
 from counter.parser import Parser
 from counter.aliases import Aliases
 from counter.storage import Storage
+from counter.logger import Logger
 
 
-def run_console_view(domain_name: str):
+def console_view(domain_name: str):
+    logger = Logger()
+
     with Storage() as storage:
         url = Aliases.get_url(domain_name)
-        parser = Parser(url, aliases=Aliases, storage=storage)
-        result = parser.count_tags()
+        logger.info(url)
 
-    if result is None:
+        parser = Parser(url)
+        results = parser.count_tags()
+
+        storage.save_tags(url, results)
+
+    if results is None:
         print('Error: Invalid URL or Connection problems')
         return
 
-    print('Result:\n', result)
+    print('Result:\n', results)
     pass
