@@ -1,22 +1,15 @@
 import requests
-import yaml
-from counter.logger import Logger
 from bs4 import BeautifulSoup
+import yaml
 
 
 class Parser:
-    logger = Logger()
-
-    def __init__(self, url, aliases, storage):
+    def __init__(self, url):
         self.url = url
-        self.aliases = aliases
-        self.storage = storage
 
     def count_tags(self):
-        url = self.aliases.get_url(self.url)
-
         try:
-            response = requests.get(url)
+            response = requests.get(self.url)
             soup = BeautifulSoup(response.text, "html.parser")
 
             results = {}
@@ -27,8 +20,5 @@ class Parser:
             return None
         except requests.exceptions.ConnectionError:
             return None
-
-        self.logger.info(url)
-        self.storage.save_tags(url, results)
 
         return yaml.dump(results)
