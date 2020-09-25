@@ -15,6 +15,17 @@ class Storage:
     def __init__(self):
         pass
 
+    def find_url(self, path):
+        db_cursor = self.conn.cursor()
+        query = f"select path from {self.table_name} where path == ?"
+        db_cursor.execute(query, (path,))
+        db_record = db_cursor.fetchone()
+
+        if db_record is None:
+            return None
+
+        return db_record[0]
+
     def get_tags(self, path):
         db_cursor = self.conn.cursor()
         query = f"select path, date, tags from {self.table_name} where path == ? order by date DESC limit 1"
