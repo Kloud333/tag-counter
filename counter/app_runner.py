@@ -1,5 +1,5 @@
-from counter.console import run_console_view
-from counter.gui import run_gui_view
+from counter.console import console_view
+from counter.gui import gui_view
 
 
 def run_append_synonym(short_name, full_name: str):
@@ -7,8 +7,8 @@ def run_append_synonym(short_name, full_name: str):
 
 
 def run_get(domain_name: str):
-    run_console_view(domain_name)
+    console_view(domain_name)
 
 
 def run_view():
-    run_gui_view()
+    gui_view()
