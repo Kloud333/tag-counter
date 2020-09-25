@@ -3,9 +3,12 @@ from tkinter import messagebox
 from counter.parser import Parser
 from counter.aliases import Aliases
 from counter.storage import Storage
+from counter.logger import Logger
 
 
-def run_gui_view():
+def gui_view():
+    logger = Logger()
+
     master = tkinter.Tk()
 
     canvas = tkinter.Canvas(master, width=400, height=600)
@@ -24,17 +27,22 @@ def run_gui_view():
     canvas.create_window(200, 140, window=url_entry)
 
     def on_calculate_click():
-        url = url_entry.get()
+        domain_name = url_entry.get()
 
         with Storage() as storage:
-            parser = Parser(url, aliases=Aliases, storage=storage)
-            result = parser.count_tags()
+            url = Aliases.get_url(domain_name)
+            logger.info(url)
 
-        if result is None:
+            parser = Parser(url)
+            results = parser.count_tags()
+
+            storage.save_tags(url, results)
+
+        if results is None:
             messagebox.showerror("Error", "Invalid URL")
             return
 
-        result_label['text'] = 'Result: \n' + result
+        result_label['text'] = 'Result: \n' + results
 
     # buttons
     get_button = tkinter.Button(text='Calculate', command=on_calculate_click)
