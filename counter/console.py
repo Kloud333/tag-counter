@@ -2,6 +2,7 @@ from counter.parser import Parser
 from counter.aliases import Aliases
 from counter.storage import Storage
 from counter.logger import Logger
+import yaml
 
 
 def console_view(domain_name: str):
@@ -12,14 +13,21 @@ def console_view(domain_name: str):
         url = alias.get_url(domain_name)
         logger.info(url)
 
-        parser = Parser(url)
-        results = parser.count_tags()
+        url_on_storage = storage.find_url(url)
 
-    if results is None:
-        print('Error: Invalid URL or Connection problems')
-        return
+        if url_on_storage is not None:
+            results = storage.get_tags(url)
+            print('FROMM db')
+        else:
+            parser = Parser(url)
+            results = parser.count_tags()
+            print('FROMM parser')
 
-    storage.save_tags(url, results)
+            if results is None:
+                print('Error: Invalid URL or Connection problems')
+                return
 
-    print('Result:\n', results)
+            storage.save_tags(url, results)
+
+    print('Result:\n', yaml.dump(results))
     pass

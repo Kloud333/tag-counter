@@ -4,6 +4,7 @@ from counter.parser import Parser
 from counter.aliases import Aliases
 from counter.storage import Storage
 from counter.logger import Logger
+import yaml
 
 
 def gui_view():
@@ -28,21 +29,28 @@ def gui_view():
 
     def on_calculate_click():
         domain_name = url_entry.get()
+        print(domain_name)
 
         with Storage() as storage:
-            url = Aliases.get_url(domain_name)
+            alias = Aliases()
+            url = alias.get_url(domain_name)
             logger.info(url)
 
-            parser = Parser(url)
-            results = parser.count_tags()
+            url_on_storage = storage.find_url(url)
 
-            storage.save_tags(url, results)
+            if url_on_storage is not None:
+                results = storage.get_tags(url)
+            else:
+                parser = Parser(url)
+                results = parser.count_tags()
 
-        if results is None:
-            messagebox.showerror("Error", "Invalid URL")
-            return
+                if results is None:
+                    messagebox.showerror("Error", "Invalid URL")
+                    return
 
-        result_label['text'] = 'Result: \n' + results
+                storage.save_tags(url, results)
+
+        result_label['text'] = 'Result: \n' + yaml.dump(results)
 
     # buttons
     get_button = tkinter.Button(text='Calculate', command=on_calculate_click)
