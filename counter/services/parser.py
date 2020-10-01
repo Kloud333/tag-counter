@@ -6,13 +6,13 @@ class Parser:
         self.response = response
 
     def count_tags(self):
-        soup = BeautifulSoup(self.response.text, "html.parser")
+        try:
+            soup = BeautifulSoup(self.response, "html.parser")
 
-        results = {}
-        for tag in soup.findAll():
-            results[tag.name] = len(soup.findAll(tag.name))
+            results = {}
+            for tag in soup.findAll():
+                results[tag.name] = len(soup.findAll(tag.name))
 
-        if not results:
-            raise SystemExit('No tags found')
-
-        return results
+            return results if results else {'error': 'No tags found'}
+        except TypeError:
+            return self.response
