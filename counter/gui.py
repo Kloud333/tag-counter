@@ -14,20 +14,20 @@ def gui_view():
 
     master = tkinter.Tk()
 
-    canvas = tkinter.Canvas(master, width=400, height=600)
+    canvas = tkinter.Canvas(master, width=600, height=600)
     canvas.pack()
 
     label1 = tkinter.Label(master, text='Calculate number of HTML tags')
     label1.config(font=('helvetica', 14))
-    canvas.create_window(200, 25, window=label1)
+    canvas.create_window(300, 25, window=label1)
 
     label2 = tkinter.Label(master, text='Enter your URL:')
     label2.config(font=('helvetica', 10))
-    canvas.create_window(200, 100, window=label2)
+    canvas.create_window(300, 50, window=label2)
 
     # entry box
     url_entry = tkinter.Entry(master)
-    canvas.create_window(200, 140, window=url_entry)
+    canvas.create_window(300, 70, window=url_entry)
 
     def on_calculate_click():
         domain_name = url_entry.get()
@@ -57,7 +57,7 @@ def gui_view():
 
     # buttons
     get_button = tkinter.Button(text='Calculate', command=on_calculate_click)
-    canvas.create_window(200, 180, window=get_button)
+    canvas.create_window(300, 100, window=get_button)
 
     # result label
     result_label = tkinter.Label(master, text='')
