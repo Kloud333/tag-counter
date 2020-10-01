@@ -1,6 +1,6 @@
 from counter.console import console_view
 from counter.gui import gui_view
-from counter.aliases import Aliases
+from counter.services.aliases.aliases import Aliases
 
 aliases = Aliases()
 
