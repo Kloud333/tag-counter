@@ -1,9 +1,11 @@
 import tkinter
 from tkinter import messagebox
-from counter.parser import Parser
-from counter.aliases import Aliases
-from counter.storage import Storage
-from counter.logger import Logger
+
+from counter.services.client import Client
+from counter.services.parser import Parser
+from counter.services.aliases.aliases import Aliases
+from counter.services.storage import Storage
+from counter.services.logger import Logger
 import yaml
 
 
@@ -41,11 +43,12 @@ def gui_view():
             if url_on_storage is not None:
                 results = storage.get_tags(url)
             else:
-                parser = Parser(url)
+                response = Client(url)
+                parser = Parser(response.get_content())
                 results = parser.count_tags()
 
-                if results is None:
-                    messagebox.showerror("Error", "Invalid URL")
+                if 'error' in results:
+                    messagebox.showerror("Error", results['error'])
                     return
 
                 storage.save_tags(url, results)

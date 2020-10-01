@@ -1,7 +1,8 @@
-from counter.parser import Parser
-from counter.aliases import Aliases
-from counter.storage import Storage
-from counter.logger import Logger
+from counter.services.parser import Parser
+from counter.services.client import Client
+from counter.services.aliases.aliases import Aliases
+from counter.services.storage import Storage
+from counter.services.logger import Logger
 import yaml
 
 
@@ -17,17 +18,18 @@ def console_view(domain_name: str):
 
         if url_on_storage is not None:
             results = storage.get_tags(url)
-            print('FROMM db')
+            print('Data from db: \n===================')
         else:
-            parser = Parser(url)
+            response = Client(url)
+            parser = Parser(response.get_content())
             results = parser.count_tags()
-            print('FROMM parser')
+            print('Data from parser: \n===================')
 
-            if results is None:
-                print('Error: Invalid URL or Connection problems')
+            if 'error' in results:
+                print(yaml.dump(results))
                 return
 
             storage.save_tags(url, results)
 
-    print('Result:\n', yaml.dump(results))
+    print('Result: \n' + yaml.dump(results))
     pass
