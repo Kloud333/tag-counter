@@ -1,11 +1,8 @@
 from pathlib import Path
 import yaml
-from counter.services.logger import Logger
 
 
 class Aliases:
-    logger = Logger()
-
     def __init__(self):
         self.path = str(Path(__file__).parent.absolute()) + '\\aliases.yaml'
         if self.path is not None:
@@ -38,7 +35,7 @@ class Aliases:
             try:
                 action(stream)
             except yaml.YAMLError as exc:
-                self.logger.error(exc)
+                print(exc)
 
     def load_yaml(self, stream):
         self.aliases = yaml.safe_load(stream)
