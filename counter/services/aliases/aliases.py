@@ -1,6 +1,6 @@
 from pathlib import Path
 import yaml
-from counter.logger import Logger
+from counter.services.logger import Logger
 
 
 class Aliases:
