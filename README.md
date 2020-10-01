@@ -5,13 +5,13 @@ Calculates a number of tags in a website page
 Usage
 -----
 
-* Clone the repo
+* Clone the repo:
   ```
   - git clone https://github.com/Kloud333/tag-counter.git
   - cd tag-counter
   ```
 
-* Initialize and activate a virtualenv:
+* Initialize and activate virtualenv:
   ```
   - virtualenv env
   - .\venv\Scripts\activate.bat
