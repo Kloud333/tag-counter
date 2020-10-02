@@ -40,7 +40,7 @@ Usage
 
 * Work with Aliases file:
   ```
-  tagcounter --aliases      //show all aliases
-  tagcounter --removealias  //remove alias
-  tagcounter --addalias     //add alias
+  tagcounter --aliases                     //show all aliases
+  tagcounter --removealias {alias}         //remove alias
+  tagcounter --addalias {alias} {domain}   //add alias
   ```
