@@ -1,26 +1,22 @@
+from counter.services.aliases.aliases import Aliases
+from counter.services.logger import Logger
 from counter.services.parser import Parser
 from counter.services.client import Client
-from counter.services.aliases.aliases import Aliases
 from counter.services.storage import Storage
-from counter.services.logger import Logger
 import yaml
 
 
-def console_view(domain_name: str):
+class Console:
+    aliases = Aliases()
     logger = Logger()
 
-    with Storage() as storage:
-        alias = Aliases()
-        url = alias.get_url(domain_name)
-        logger.info(url)
+    def __init__(self, domain_name):
+        self.url = self.aliases.get_url(domain_name)
+        self.logger.info(self.url)
 
-        url_on_storage = storage.find_url(url)
-
-        if url_on_storage is not None:
-            results = storage.get_tags(url)
-            print('Data from db: \n===================')
-        else:
-            response = Client(url)
+    def console_view(self):
+        with Storage() as storage:
+            response = Client(self.url)
             parser = Parser(response.get_content())
             results = parser.count_tags()
             print('Data from parser: \n===================')
@@ -29,7 +25,16 @@ def console_view(domain_name: str):
                 print(yaml.dump(results))
                 return
 
-            storage.save_tags(url, results)
+            storage.save_tags(self.url, results)
 
-    print('Result: \n' + yaml.dump(results))
-    pass
+        print('Result: \n' + yaml.dump(results))
+        pass
+
+    def console_view_db(self):
+        with Storage() as storage:
+            data = storage.get_tags(self.url)
+            results = data if data else 'No Data founded'
+            print('Data from db: \n===================')
+
+        print('Result: \n' + yaml.dump(results))
+        pass
