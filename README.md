@@ -29,8 +29,13 @@ Usage
 
 * Run Console version:
   ```
-  - tagcounter --get/--view ggl
-  - tagcounter --get/--view google.com
+  get list of tags 
+  - tagcounter --get ggl
+  - tagcounter --get google.com
+  
+  get list of tags fom db
+  - tagcounter --view ggl
+  - tagcounter --view google.com
   ```
 
 * Run GUI version:
