@@ -1,5 +1,5 @@
-from counter.console import console_view
-from counter.gui import gui_view
+from counter.console import Console
+from counter.gui import Gui
 from counter.services.aliases.aliases import Aliases
 
 aliases = Aliases()
@@ -18,8 +18,12 @@ def add_alias(alias):
 
 
 def run_get(domain_name: str):
-    console_view(domain_name)
+    Console(domain_name).console_view()
 
 
-def run_view():
-    gui_view()
+def run_view(domain_name: str):
+    Console(domain_name).console_view_db()
+
+
+def run_gui():
+    Gui().gui_view()
