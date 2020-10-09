@@ -45,7 +45,7 @@ Usage
 
 * Work with Aliases file:
   ```
-  tagcounter --aliases                       //show all aliases
-  tagcounter --removealias {ggl}             //remove alias
-  tagcounter --addalias {ggl} {google.com}   //add alias
+  tagcounter --aliases                   //show all aliases
+  tagcounter --removealias ggl           //remove alias
+  tagcounter --addalias ggl google.com   //add alias
   ```
