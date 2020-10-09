@@ -29,8 +29,8 @@ Usage
 
 * Run Console version:
   ```
-  - tagcounter --get ggl
-  - tagcounter --get google.com
+  - tagcounter --get/--view ggl
+  - tagcounter --get/--view google.com
   ```
 
 * Run GUI version:
@@ -40,7 +40,7 @@ Usage
 
 * Work with Aliases file:
   ```
-  tagcounter --aliases                     //show all aliases
-  tagcounter --removealias {alias}         //remove alias
-  tagcounter --addalias {alias} {domain}   //add alias
+  tagcounter --aliases                       //show all aliases
+  tagcounter --removealias {ggl}             //remove alias
+  tagcounter --addalias {ggl} {google.com}   //add alias
   ```
